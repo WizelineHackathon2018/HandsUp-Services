@@ -1,0 +1,12 @@
+{
+    "apps" : [{
+      "name"        : "handserver",
+      "script"      : "./src/app.js",
+      "watch"       : ["src", "config"],
+      "instance_var": "INSTANCE_ID",
+      "env": {
+        "NODE_ENV": "dev"
+      }
+    }]
+  }
+  

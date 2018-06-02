@@ -1,0 +1,33 @@
+version: "3"
+services:
+  mongo:
+    container_name: mongodb-hand
+    image: mongo:3.2
+    networks:
+      - handservernetwork
+    ports:
+      - "27018:27017"
+    volumes:
+      - ./db_data/mongo:/data/db
+      - ./dev/scripts/mongo:/docker-entrypoint-initdb.d/
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_INITDB_ROOT_USERNAME=test
+      - MONGO_INITDB_ROOT_PASSWORD=test
+      - MONGO_INITDB_DATABASE=testdb
+  handserver:
+    image: handserver
+    container_name: handserver
+    command: pm2 start config/dev.pm2.json --no-daemon
+    networks:
+      - handservernetwork
+    ports:
+      - "3000:3000"
+    build: .
+    depends_on:
+      - mongo
+    volumes:
+      - ./:/var/www/html/handserver
+      - /var/www/html/handserver/node_modules
+networks:
+  handservernetwork:

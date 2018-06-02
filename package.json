@@ -1,0 +1,16 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend for hackaton project",
+  "main": "app.js",
+  "repository": "https://github.com/elbarbaro/backend.git",
+  "author": "Carlos Linares",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "config": "^1.30.0",
+    "express": "^4.16.3",
+    "mongoose": "^5.1.3"
+  }
+}
