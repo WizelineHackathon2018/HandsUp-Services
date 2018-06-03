@@ -105,4 +105,29 @@ describe('task', function() {
             done();
         });
     });
+
+    test('set task handssup', function(done) {
+        const requestData = {
+            username: 'test',
+            _id: '5b133e5853f4f6165ff9f026',
+            up: true
+        };
+
+        const options = {
+            method: 'PATCH',
+            url: 'http://localhost:3000/api/task/handsup',
+            json: true,
+            body: requestData
+        };
+
+        request(options, function(err, res, body) {
+            const jsonBody = typeof body === 'string' 
+                ? JSON.parse(body)
+                : {...body};
+
+            expect(res.statusCode).toBe(200);
+            expect(jsonBody).toHaveProperty('status', 'success');
+            done();
+        });
+    });
 });
