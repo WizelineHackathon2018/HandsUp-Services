@@ -6,7 +6,17 @@ const UserSchema = new Schema({
     username: String,
     password: String,
     skills: [String],
-    role: String
+    role: String,
+    tasks: [
+        {
+            title: String,
+            description: String,
+            tags: [String],
+            comments: [String],
+            hand: Boolean,
+            categorized: Boolean
+        }
+    ]
 });
 
 module.exports = mongoose.model('User', UserSchema);

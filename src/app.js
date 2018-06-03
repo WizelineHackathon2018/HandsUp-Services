@@ -5,8 +5,16 @@ const mongoose = require('mongoose');
 const mainRouter = require('./controllers');
 const cors = require('./middlewares/cors');
 
+const ioSingleton = require('./utils/io');
+
 const app = express();
 const { port } = config;
+
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
+// Set io instance to share between modules
+ioSingleton(io);
 
 mongoose.connect(config.get('mongoUri'));
 
@@ -20,4 +28,8 @@ app.get('/api/ping', function(req, res) {
     res.send({data: 'pong'});
 });
 
-app.listen(port, () => console.log(`Running at port: ${port}`));
+// channels
+const taskChannel = require('./channels/task')(io);
+
+//app.listen(port, () => console.log(`Running at port: ${port}`));
+server.listen(port);    
